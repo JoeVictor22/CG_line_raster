@@ -5,14 +5,19 @@ import time
 from pprint import pprint
 
 def drawPoint(x, y):
-    matriz[x][y] = 1
+    matriz[math.floor(x)][math.floor(y)] = 1
 
 # line limits
 
-# line examples
-x1, y1 = 2, 2
-x2, y2 = 2, 20
 
+
+
+'''
+# TODO: entrar
+qVga = 320, 240
+vga = 4
+
+'''
 
 # ignores direction
 '''
@@ -20,13 +25,33 @@ x1, x2 = sorted((x1,x2))
 y1, y2 = sorted((y1,y2))
 '''
 # determine max size
-size_matrix = max(x1, x2, y1, y2)
+
+# size_matrix = max(x1, x2, y1, y2)
+
 
 # matrix resolution
-res = (size_matrix, size_matrix)
+#res = (320, 240)
+
+#res = (1280, 720)
+
+res = (3840, 2160)
+
+x1, y1 = 0.5, 0.7
+x2, y2 = 0.8, 0.2
+
+
+# line examples
+x1, y1 = x1 * res[0], y1 * res[1]
+x2, y2 = x2 * res[0], y2 * res[1]
+
+
 
 # creating the matrix
 matriz = np.zeros(res)
+
+
+
+
 
 dX = x2 - x1
 dY = y2 - y1
