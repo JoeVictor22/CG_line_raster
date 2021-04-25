@@ -153,13 +153,28 @@ class RasterFactory:
 if __name__ == "__main__":
     raster = RasterFactory()
 
-    raster.set_resolution(resolution=5)
-    raster.set_values(
-        x1=0.5,
-        x2=0.8,
-        y1=0.7,
-        y2=0.2,
-    )
+    raster.set_resolution(resolution=0)
 
+    # set 1, positive
+    # raster.set_values(
+    #     x1=0.2,
+    #     y1=0.4,
+    #     x2=0.8,
+    #     y2=0.6,
+    # )
+    # # set 2, negative
+    # raster.set_values(
+    #     x1=0.2,
+    #     y1=0.4,
+    #     x2=0.8,
+    #     y2=0.2,
+    # )
+    # set 3, undefined
+    raster.set_values(
+        x1=0.2,
+        y1=0.05,
+        x2=0.2,
+        y2=1,
+    )
     raster.raster()
     raster.show_line()
