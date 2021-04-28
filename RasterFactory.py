@@ -21,6 +21,7 @@ class RasterFactory:
     matrix = None
     resolution = 0
     resolutions = [
+        (30, 30),
         (320, 240),
         (720, 480),
         (1024, 768),
@@ -90,12 +91,8 @@ class RasterFactory:
         """
         matrix = self.matrix
         if matrix is not None:
-            matrix = matrix.T[::-1]
-            plt.imshow(matrix)
-            plt.colorbar()
+            plt.imshow(matrix.T, cmap=plt.cm.gray, origin="lower")
             plt.show()
-
-        pprint(matrix)
 
     def raster(self):
         """
@@ -155,26 +152,37 @@ if __name__ == "__main__":
 
     raster.set_resolution(resolution=0)
 
-    # set 1, positive
+    # # set 1, m=positive
     # raster.set_values(
     #     x1=0.2,
     #     y1=0.4,
     #     x2=0.8,
     #     y2=0.6,
     # )
-    # # set 2, negative
-    # raster.set_values(
-    #     x1=0.2,
-    #     y1=0.4,
-    #     x2=0.8,
-    #     y2=0.2,
-    # )
-    # set 3, undefined
+
+    # set 2, m=negative
     raster.set_values(
         x1=0.2,
-        y1=0.05,
-        x2=0.2,
-        y2=1,
+        y1=0.4,
+        x2=0.8,
+        y2=0.2,
     )
+
+    # # set 3, m=undefined
+    # raster.set_values(
+    #     x1=0.2,
+    #     y1=0.05,
+    #     x2=0.2,
+    #     y2=0.9,
+    # )
+    #
+    # # set 4, m=0
+    # raster.set_values(
+    #     x1=0.2,
+    #     y1=0.05,
+    #     x2=0.9,
+    #     y2=0.05,
+    # )
+
     raster.raster()
     raster.show_line()
