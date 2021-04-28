@@ -9,6 +9,13 @@ class RasterFactory:
     Class used to raster a line onto a matrix and display it
     """
 
+    # keeping old values
+    oX1 = 0
+    oX2 = 0
+    oY1 = 0
+    oY2 = 0
+
+    # values used for iteration
     x1 = 0
     y1 = 0
     x2 = 0
@@ -21,7 +28,8 @@ class RasterFactory:
     matrix = None
     resolution = 0
     resolutions = [
-        (30, 30),
+        (64, 48),
+        (128, 96),
         (320, 240),
         (720, 480),
         (1024, 768),
@@ -37,11 +45,12 @@ class RasterFactory:
 
     def set_resolution(self, resolution: int):
         """
-        Set resolution that will be used by the factory
+        Set resolution that will be used by the factory, and guarantee that matrix is None
         :param resolution: integer representing which resolution set should be used
         """
         try:
             self.resolution = resolution
+
         except IndexError as e:
             print(
                 "Resolução não cadastrada, definindo para {}".format(
@@ -59,10 +68,11 @@ class RasterFactory:
         :param y2: y2 of line
         :return:
         """
-        self.x1 = abs(x1)
-        self.x2 = abs(x2)
-        self.y1 = abs(y1)
-        self.y2 = abs(y2)
+
+        self.oX1 = abs(x1)
+        self.oX2 = abs(x2)
+        self.oY1 = abs(y1)
+        self.oY2 = abs(y2)
 
     def __preload(self) -> bool:
         """
@@ -84,7 +94,7 @@ class RasterFactory:
 
         return True
 
-    def show_line(self):
+    def add_line(self):
         """
         Display matrix using pyplot
         :return:
@@ -92,7 +102,14 @@ class RasterFactory:
         matrix = self.matrix
         if matrix is not None:
             plt.imshow(matrix.T, cmap=plt.cm.gray, origin="lower")
-            plt.show()
+            # plt.show()
+
+    @staticmethod
+    def show():
+        """
+        Display pyplot graph
+        """
+        plt.show()
 
     def raster(self):
         """
@@ -129,12 +146,12 @@ class RasterFactory:
         """
 
         self.x1, self.y1 = (
-            self.x1 * self.resolutions[self.resolution][0],
-            self.y1 * self.resolutions[self.resolution][1],
+            self.oX1 * self.resolutions[self.resolution][0],
+            self.oY1 * self.resolutions[self.resolution][1],
         )
         self.x2, self.y2 = (
-            self.x2 * self.resolutions[self.resolution][0],
-            self.y2 * self.resolutions[self.resolution][1],
+            self.oX2 * self.resolutions[self.resolution][0],
+            self.oY2 * self.resolutions[self.resolution][1],
         )
 
     def __draw_point(self, x: float, y: float):
@@ -150,7 +167,6 @@ class RasterFactory:
 if __name__ == "__main__":
     raster = RasterFactory()
 
-    raster.set_resolution(resolution=0)
 
     # # set 1, m=positive
     # raster.set_values(
@@ -175,7 +191,8 @@ if __name__ == "__main__":
     #     x2=0.2,
     #     y2=0.9,
     # )
-    #
+
+
     # # set 4, m=0
     # raster.set_values(
     #     x1=0.2,
@@ -184,5 +201,8 @@ if __name__ == "__main__":
     #     y2=0.05,
     # )
 
+    raster.set_resolution(resolution=2)
     raster.raster()
-    raster.show_line()
+    raster.add_line()
+
+    raster.show()
